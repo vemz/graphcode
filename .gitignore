@@ -1,0 +1,4 @@
+/papers
+*.docx
+*.pyc
+.DS_Store
