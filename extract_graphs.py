@@ -183,7 +183,6 @@ def compute_stats(nodes: Dict, edges: List) -> Dict:
 
 
 def filter_graph(stats: Dict, min_nodes: int = 3, max_nodes: int = 500) -> bool:
-    """Critères pour garder un graphe."""
     if stats["n_nodes"] < min_nodes or stats["n_nodes"] > max_nodes:
         return False
     non_import_edges = sum(v for k, v in stats["edge_types"].items() if k != "IMPORTS")
@@ -288,23 +287,6 @@ def process_dataset(n_samples: int, output_path: Path,
             global_stats["total_edges"] += stats["n_edges"]
             global_stats["node_types"].update(stats["node_types"])
             global_stats["edge_types"].update(stats["edge_types"])
-
-    # Rapport final
-    print("\n" + "=" * 60)
-    print(f"EXTRACTION TERMINÉE")
-    print("=" * 60)
-    print(f"  Graphes sauvegardés : {n_ok}")
-    print(f"  Erreurs de parsing   : {n_parse_err}")
-    print(f"  Filtrés (trop petits/gros/triviaux/dup) : {n_filtered}")
-    print(f"  Total examples       : {n_samples}")
-    if n_ok > 0:
-        print(f"\n  Nœuds totaux         : {global_stats['total_nodes']}")
-        print(f"  Nœuds moy. / graphe  : {global_stats['total_nodes'] / n_ok:.1f}")
-        print(f"  Arêtes totales       : {global_stats['total_edges']}")
-        print(f"  Arêtes moy. / graphe : {global_stats['total_edges'] / n_ok:.1f}")
-        print(f"\n  Types de nœuds : {dict(global_stats['node_types'])}")
-        print(f"  Types d'arêtes : {dict(global_stats['edge_types'])}")
-    print(f"\n  Output : {output_path}")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
