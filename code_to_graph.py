@@ -160,13 +160,11 @@ def build_graph(source: str, file_path: str = "module.py") -> Tuple[Dict, List, 
 
 
 def compute_stats(nodes: Dict, edges: List) -> Dict:
-    """Statistiques sur un graphe (pour valider qu'il est utilisable pour FC-GSSL)."""
     n = len(nodes)
     m = len(edges)
     type_counts = Counter(nd["type"] for nd in nodes.values())
     edge_type_counts = Counter(e["type"] for e in edges)
 
-    # Degré moyen (graphe non-orienté)
     degree = Counter()
     for e in edges:
         degree[e["outNodeID"]] += 1
